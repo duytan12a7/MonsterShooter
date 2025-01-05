@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform followTrans;
-    [SerializeField] private float turnSpeed = 5f;
+    [SerializeField] private float turnSpeed = 50f;
 
     private void LateUpdate()
     {

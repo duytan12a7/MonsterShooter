@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 1061116766754150228}
   - component: {fileID: 5313882270897327093}
   - component: {fileID: 7440160987599089634}
+  - component: {fileID: 8891333610875140851}
   m_Layer: 5
   m_Name: JoyStick
   m_TagString: Untagged
@@ -122,6 +123,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8891333610875140851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457847894338325820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7a1905fd4c4404289df370149d4f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerTrans: {fileID: 6137601435235096179}
+  backgroundTrans: {fileID: 2422199758186259253}
+  thumbStickTrans: {fileID: 6852828740927342243}
 --- !u!1 &6633998136698698305
 GameObject:
   m_ObjectHideFlags: 0

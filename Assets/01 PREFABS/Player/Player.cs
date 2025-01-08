@@ -10,13 +10,17 @@ public class Player : MonoBehaviour
     [SerializeField] private JoyStick aimStick;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private Animator animator;
     private Camera mainCamera;
 
     [Header(" Settings ")]
-    [SerializeField] private float moveSpeed = 20f;
-    [SerializeField] private float turnSpeed = 30f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float turnSpeed = 8f;
+    [SerializeField] private float animTurnSpeed = 15f;
     private Vector2 moveInput;
     private Vector2 aimInput;
+
+    private float animatorTurnSpeed;
 
     private void Start()
     {
@@ -31,6 +35,7 @@ public class Player : MonoBehaviour
         mainCamera = Camera.main;
         LoadCharacterController();
         LoadCameraController();
+        LoadAnimator();
     }
 
     private void AimStickUpdated(Vector2 inputValue)
@@ -57,22 +62,39 @@ public class Player : MonoBehaviour
         Vector3 aimDir = aimInput.sqrMagnitude > 0 ? StickInputToWorldDir(aimInput) : moveDir;
 
         RotateTowards(aimDir);
+
+        float forward = Vector3.Dot(moveDir, transform.forward);
+        float right = Vector3.Dot(moveDir, transform.right);
+
+        animator.SetFloat("forwardSpeed", forward);
+        animator.SetFloat("rightSpeed", right);
     }
 
     private void UpdateCamera()
     {
-        // player is move but not aiming and cameraController exists
         if (moveInput.sqrMagnitude != 0 && aimInput.sqrMagnitude == 0 && cameraController != null)
             cameraController.AddYawInput(moveInput.x);
     }
 
     private void RotateTowards(Vector3 aimDir)
     {
+        float currentTurnSpeed = 0;
+
         if (aimDir.sqrMagnitude != 0)
         {
+            Quaternion prevRot = transform.rotation;
+
             float turnLerp = turnSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(aimDir, Vector3.up), turnLerp);
+
+            Quaternion currentRot = transform.rotation;
+            float dir = Vector3.Dot(aimDir, transform.right) > 0 ? 1 : -1;
+            float rotDelta = Quaternion.Angle(prevRot, currentRot) * dir;
+            currentTurnSpeed = rotDelta / Time.deltaTime;
         }
+
+        animatorTurnSpeed = Mathf.Lerp(animatorTurnSpeed, currentTurnSpeed, Time.deltaTime * animTurnSpeed);
+        animator.SetFloat("turnSpeed", animatorTurnSpeed);
     }
 
     private Vector3 StickInputToWorldDir(Vector2 inputValue)
@@ -94,5 +116,12 @@ public class Player : MonoBehaviour
         if (cameraController != null) return;
         cameraController = FindObjectOfType<CameraController>();
         Debug.Log(transform.name + ": LoadCameraController", gameObject);
+    }
+
+    private void LoadAnimator()
+    {
+        if (animator != null) return;
+        animator = GetComponent<Animator>();
+        Debug.Log(transform.name + ": LoadAnimator", gameObject);
     }
 }

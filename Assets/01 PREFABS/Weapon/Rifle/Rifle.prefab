@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSlotTag: RifleAttachSlot
+  animatorOverride: {fileID: 22100000, guid: b44160e733c809442a415955bd69c2a1, type: 2}
 --- !u!1001 &8623019151000775157
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -58,4 +58,6 @@ public class InventoryComponent : MonoBehaviour
         weapons[weaponIndex].Equip();
         currentWeaponIndex = weaponIndex;
     }
+
+    public Weapon GetActiveWeapon() => weapons[currentWeaponIndex];
 }

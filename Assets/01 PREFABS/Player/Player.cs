@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Animator animator;
+    [SerializeField] private InventoryComponent inventoryComponent;
     private Camera mainCamera;
 
     [Header(" Settings ")]
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 
         moveStick.onStickValueUpdated += MoveStickUpdated;
         aimStick.onStickValueUpdated += AimStickUpdated;
+        aimStick.onStickTaped += SwitchWeapon;
     }
 
     private void LoadComponent()
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
         LoadCharacterController();
         LoadCameraController();
         LoadAnimator();
+        LoadInventoryComponent();
     }
 
     private void AimStickUpdated(Vector2 inputValue)
@@ -104,6 +107,13 @@ public class Player : MonoBehaviour
         return inputValue.x * rightDir + inputValue.y * upDir;
     }
 
+    private void SwitchWeapon()
+    {
+        inventoryComponent.NextWeapon();
+    }
+
+    #region Components Link
+
     private void LoadCharacterController()
     {
         if (characterController != null) return;
@@ -124,4 +134,13 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         Debug.Log(transform.name + ": LoadAnimator", gameObject);
     }
+
+    private void LoadInventoryComponent()
+    {
+        if (inventoryComponent != null) return;
+        inventoryComponent = GetComponent<InventoryComponent>();
+        Debug.Log(transform.name + ": LoadInventoryComponent", gameObject);
+    }
+    
+    #endregion
 }

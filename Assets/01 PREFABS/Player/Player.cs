@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
         moveStick.onStickValueUpdated += MoveStickUpdated;
         aimStick.onStickValueUpdated += AimStickUpdated;
-        aimStick.onStickTaped += SwitchWeapon;
+        aimStick.onStickTaped += StartSwitchWeapon;
     }
 
     private void LoadComponent()
@@ -44,6 +44,12 @@ public class Player : MonoBehaviour
     private void AimStickUpdated(Vector2 inputValue)
     {
         aimInput = inputValue;
+
+        if (aimInput.magnitude > 0)
+            animator.SetBool("attacking", true);
+        else
+            animator.SetBool("attacking", false);
+
     }
 
     private void MoveStickUpdated(Vector2 inputValue)
@@ -107,6 +113,11 @@ public class Player : MonoBehaviour
         return inputValue.x * rightDir + inputValue.y * upDir;
     }
 
+    private void StartSwitchWeapon()
+    {
+        animator.SetTrigger("switchWeapon");
+    }
+
     private void SwitchWeapon()
     {
         inventoryComponent.NextWeapon();
@@ -141,6 +152,6 @@ public class Player : MonoBehaviour
         inventoryComponent = GetComponent<InventoryComponent>();
         Debug.Log(transform.name + ": LoadInventoryComponent", gameObject);
     }
-    
+
     #endregion
 }

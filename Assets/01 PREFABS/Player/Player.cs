@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
         aimStick.onStickTaped += StartSwitchWeapon;
     }
 
+    #region Load Components
+
     private void LoadComponent()
     {
         mainCamera = Camera.main;
@@ -39,7 +41,55 @@ public class Player : MonoBehaviour
         LoadCameraController();
         LoadAnimator();
         LoadInventoryComponent();
+        LoadMoveStick();
+        LoadAimStick();
     }
+
+    private void LoadCharacterController()
+    {
+        if (characterController != null) return;
+        characterController = GetComponent<CharacterController>();
+        Debug.Log(transform.name + " : LoadCharacterController", gameObject);
+    }
+
+    private void LoadCameraController()
+    {
+        if (cameraController != null) return;
+        cameraController = FindObjectOfType<CameraController>();
+        Debug.Log(transform.name + " : LoadCameraController", gameObject);
+    }
+
+    private void LoadAnimator()
+    {
+        if (animator != null) return;
+        animator = GetComponent<Animator>();
+        Debug.Log(transform.name + " : LoadAnimator", gameObject);
+    }
+
+    private void LoadInventoryComponent()
+    {
+        if (inventoryComponent != null) return;
+        inventoryComponent = GetComponent<InventoryComponent>();
+        Debug.Log(transform.name + " : LoadInventoryComponent", gameObject);
+    }
+
+    private void LoadMoveStick()
+    {
+        if (moveStick != null) return;
+
+        moveStick = GameObject.FindWithTag("MoveStick").GetComponent<JoyStick>();
+        Debug.Log(transform.name + " : LoadMoveStick", gameObject);
+    }
+
+    private void LoadAimStick()
+    {
+        if (aimStick != null) return;
+
+        aimStick = GameObject.FindWithTag("AimStick").GetComponent<JoyStick>();
+        Debug.Log(transform.name + " : LoadAimStick", gameObject);
+    }
+
+    #endregion
 
     private void AimStickUpdated(Vector2 inputValue)
     {
@@ -127,36 +177,4 @@ public class Player : MonoBehaviour
     {
         inventoryComponent.GetActiveWeapon().Attack();
     }
-
-    #region Components Link
-
-    private void LoadCharacterController()
-    {
-        if (characterController != null) return;
-        characterController = GetComponent<CharacterController>();
-        Debug.Log(transform.name + ": LoadCharacterController", gameObject);
-    }
-
-    private void LoadCameraController()
-    {
-        if (cameraController != null) return;
-        cameraController = FindObjectOfType<CameraController>();
-        Debug.Log(transform.name + ": LoadCameraController", gameObject);
-    }
-
-    private void LoadAnimator()
-    {
-        if (animator != null) return;
-        animator = GetComponent<Animator>();
-        Debug.Log(transform.name + ": LoadAnimator", gameObject);
-    }
-
-    private void LoadInventoryComponent()
-    {
-        if (inventoryComponent != null) return;
-        inventoryComponent = GetComponent<InventoryComponent>();
-        Debug.Log(transform.name + ": LoadInventoryComponent", gameObject);
-    }
-
-    #endregion
 }

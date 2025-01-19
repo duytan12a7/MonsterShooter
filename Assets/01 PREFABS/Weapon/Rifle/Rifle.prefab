@@ -51,6 +51,7 @@ MonoBehaviour:
   attackRateMult: 2
   animatorOverride: {fileID: 22100000, guid: b44160e733c809442a415955bd69c2a1, type: 2}
   aimComp: {fileID: 1879833196020810928}
+  damage: 8
 --- !u!114 &1879833196020810928
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -118,9 +118,14 @@ public class Player : MonoBehaviour
         animator.SetTrigger("switchWeapon");
     }
 
-    private void SwitchWeapon()
+    public void SwitchWeapon()
     {
         inventoryComponent.NextWeapon();
+    }
+
+    public void AttackPoint()
+    {
+        inventoryComponent.GetActiveWeapon().Attack();
     }
 
     #region Components Link

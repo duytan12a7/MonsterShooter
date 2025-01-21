@@ -21,7 +21,7 @@ public class HealthComponent : MonoBehaviour
 
     public void ChangeHealth(float amount)
     {
-        if (amount == 0) return;
+        if (amount == 0 || health == 0) return;
 
         health = Mathf.Clamp(health - amount, 0, maxHealth);
 

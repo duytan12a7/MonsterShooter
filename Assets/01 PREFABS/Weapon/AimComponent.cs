@@ -29,6 +29,7 @@ public class AimComponent : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(muzzle.position, muzzle.position + GetAimDir() * aimRange);
     }
 }
